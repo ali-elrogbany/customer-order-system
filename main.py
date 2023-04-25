@@ -1,4 +1,4 @@
-from DatabaseFunctions import *
+from UserDatabaseFunctions import *
 import os
 fileName = "database.txt"
 
@@ -6,7 +6,6 @@ fileName = "database.txt"
 loggedIn = False
 
 def WelcomeScreen():
-    #os.system('cls')
     print("Welcome to Ali's shopping site!")
     print("Type the number corresponding service:")
     service = int(input("1-Register\n2-LogIn\n3-Exit\n"))
@@ -18,7 +17,6 @@ def WelcomeScreen():
         quit()
 
 def Register():
-    #os.system('cls')
     fname = input("Enter your full name: ")
     email = input("Enter your email: ")
     password = input("Enter your password: ")
@@ -30,22 +28,31 @@ def Register():
     elif not FindUser(email):
         AddUser(fname, email, dateOfBirth, password)
     else:
+        os.system('cls')
         print("Sorry this email is already in use!")
         Register()
         
 def login():
-    #os.system('cls')
     email = input("Enter your email: ")
     password = input("Enter your password: ")
-    if CheckLogIn(email, password):
+    access = CheckLogIn(email, password)
+    if access[0] == True:
         global loggedIn
         loggedIn = True
-        UserPage()
+        if access[1] == "Admin":
+            AdminPage()
+        elif access[1] == "Customer":
+            CustomerPage()
+    else:
+        print("email or password incorrect")
+        
     
-def UserPage():
-    #os.system('cls')
-    h = input("Enter 1 to logout: ")
-    if h == "1":
-        WelcomeScreen()
+def CustomerPage():
+    #Add UserPage
+    pageName = "UserPage"
+
+def AdminPage():
+    #Add AdminPage
+    pageName = "AdminPage"
 
 WelcomeScreen()

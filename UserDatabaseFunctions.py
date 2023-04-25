@@ -1,4 +1,4 @@
-fileName = "database.txt"
+fileName = "UserDatabase.txt"
 def FindUser(email):
     file = open(fileName, "r")
     for i in file:
@@ -13,7 +13,7 @@ def AddUser(fullName, email,  dateOfBirth, password):
     file = open(fileName, "a+")
     if FindUser(email) == False:
         id = int(GetLastID()) + 1
-        record = str(id) + "~" + fullName + "~" + email + "~" + dateOfBirth + "~" + password + "~"
+        record = str(id) + "~" + fullName + "~" + email + "~" + dateOfBirth + "~" + password + "~" + "Customer" + "~"
         file.write(record + "\n")
         file.close()
         return True
@@ -36,5 +36,5 @@ def CheckLogIn(loginEmail, loginPassword):
             userList = i.split("~")
             if userList[2] == loginEmail:
                 if userList[4] == loginPassword:
-                    return True
-    return False
+                    return (True, userList[5])
+    return (False,False)
