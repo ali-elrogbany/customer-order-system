@@ -1,6 +1,7 @@
 from UserDatabaseFunctions import *
+from GeneralFunctions import *
+from AdminFunctions import *
 import os
-fileName = "database.txt"
 
 #local variables
 loggedIn = False
@@ -44,15 +45,21 @@ def login():
         elif access[1] == "Customer":
             CustomerPage()
     else:
-        print("email or password incorrect")
-        
+        print("email or password incorrect") 
     
 def CustomerPage():
     #Add UserPage
     pageName = "UserPage"
 
 def AdminPage():
-    #Add AdminPage
-    pageName = "AdminPage"
+    print("Admin Page:")
+    service = int(input("1-Manage Products\n2-Manage Orders\nManage Customers"))
+    if service == 1:
+        ManageProducts()
+    if service == 2:
+        ManageOrders()
+    if service == 3:
+        ManageCustomers()
+    
 
 WelcomeScreen()

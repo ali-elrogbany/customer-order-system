@@ -1,4 +1,6 @@
 fileName = "UserDatabase.txt"
+from GeneralFunctions import *
+
 def FindUser(email):
     file = open(fileName, "r")
     for i in file:
@@ -12,22 +14,13 @@ def FindUser(email):
 def AddUser(fullName, email,  dateOfBirth, password):
     file = open(fileName, "a+")
     if FindUser(email) == False:
-        id = int(GetLastID()) + 1
+        id = int(GetLastID(fileName)) + 1
         record = str(id) + "~" + fullName + "~" + email + "~" + dateOfBirth + "~" + password + "~" + "Customer" + "~"
         file.write(record + "\n")
         file.close()
         return True
     file.close()
     return False
-
-def GetLastID():
-    file = open(fileName, "r")
-    lastID = "0"
-    for i in file:
-        userList = i.split("~")
-        lastID = userList[0]
-    file.close()
-    return lastID
 
 def CheckLogIn(loginEmail, loginPassword):
     if FindUser(loginEmail) == True:
