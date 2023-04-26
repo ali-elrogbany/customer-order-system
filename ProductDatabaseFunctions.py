@@ -19,11 +19,30 @@ def ListProducts():
 
 def AddProduct(productName, productDescription, productPrice):
     if FindProduct(productName) == False:
-        id = GetLastID(productDatabaseFile) + 1
+        id = str(int(GetLastID(productDatabaseFile)) + 1)
         record = id + "~" + productName + "~" + productDescription + "~" + productPrice + "~"
         productDatabase = open(productDatabaseFile, "a")
         productDatabase.write(record + "\n")
         productDatabase.close()
         return True
     return False
+
+#Not working properly
+def DeleteProduct(lineToDelete):
+    productsFile = open(productDatabaseFile, "w")
+    idCounter = 0
+    lineToWrite = ""
+    for line in productsFile:
+        idCounter = 1
+        if line.strip("\n") != lineToDelete:
+            productToPlace = line.split("~")
+            if productToPlace[0] > idCounter:
+                productToPlace[0] = idCounter + 1
+                for i in productToPlace:
+                    lineToWrite += i
+            else:
+                lineToWrite = line
+            productsFile.write(lineToWrite)
+    productsFile.close()
+    print("Product Deleted!")
     

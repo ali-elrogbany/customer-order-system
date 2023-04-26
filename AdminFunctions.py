@@ -11,10 +11,22 @@ def ManageProducts():
     elif service == 2:
         productName = input("Enter product name: ")
         productDescription = input("Enter product description: ")
-        productPrice = float(input("Enter product price: "))
+        productPrice = (input("Enter product price: "))
         AddProduct(productName, productDescription, productPrice)
+        
     elif service == 3:
-        print("Delete Product")
+        ListProducts()
+        lineDelete = int(input("Enter the ID of the of the product you wish to delete: "))
+        productsFile = open(productDatabaseFile, "r")
+        lineToDelete = ""
+        for line in productsFile:
+            product = line.split("~")
+            if product[0] == lineDelete:
+                lineToDelete = line
+                break
+        productsFile.close()
+        DeleteProduct(lineToDelete)
+          
     elif service == 4:
         print("Update Product")
 
